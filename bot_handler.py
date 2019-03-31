@@ -12,8 +12,12 @@ def on_chat(msg):
         game_list.append(senario.create_newgame(msg["chat"]["id"]))
         skull_bot.sendMessage(msg["chat"]["id"], "A new game of skull king is created! Click to join!", reply_markup=create_keyboard)
     elif is_valid_join_request(msg):
+        print(msg)
         senario.create_newplayer_for_thisgame(msg["chat"]["id"], game_found(int(msg["text"].split()[1]), game_list))
-        skull_bot.sendMessage(msg["chat"]["id"], "You joined a game of the group ...(tg://user?id=120013746)")
+        skull_bot.sendMessage(msg["chat"]["id"], "You joined a game of the group ...")
+    elif is_valid_start_game(msg):
+        senario.starting_game(game_found(msg["chat"]["id"],game_list))
+        skull_bot.sendMessage(msg["chat"]["id"], "The Game Started!")
     else:
         skull_bot.sendMessage(msg["chat"]["id"], "Invalid message")
 
