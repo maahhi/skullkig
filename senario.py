@@ -37,7 +37,7 @@ def newround(round_number,thisgame):
     for player in thisgame.player_list:
         yuhuha = min(round_number,5)
         yuhuha_list = [i for i in range(0,yuhuha+1)]
-        yuhuha_answer = askInPV(player, yuhuha_list)
+        yuhuha_answer = yuhuhaAskInPV(player, yuhuha_list)
         player._yuhuha = yuhuha_answer
         round_yuhuha.append(yuhuha_answer)
     showInGroup(thisgame,round_yuhuha,"yuhuha")
@@ -56,7 +56,7 @@ def newset(setstarter, thisgame):
         this_player = thisgame.player_list[setstarter]
         mycards = this_player.mycards
         acceptable_cards = acceptableCards(thisgame,mycards,set_info)
-        answer = askInPV(this_player,acceptable_cards)
+        answer = cardAskInPV(this_player,acceptable_cards)
         card_index = thisgame.player_list[setstarter].mycards.index(answer)
         this_card = thisgame.player_list[setstarter].mycards.pop(card_index)
         print("chosed card",this_card)
@@ -173,7 +173,7 @@ def judgment_set(set_info,thisgame):
             #Mermaid
             if cardvariation == "Mermaid":
                 print("Mermaid")
-                if firstmemaid in None:
+                if firstmemaid is None:
                     firstmemaid = player_card
                 if bestcard_type == "special":
                     if bestcard_vari is not 'Escape card':
