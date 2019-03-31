@@ -1,6 +1,7 @@
 from game import Game
 from player import Player
 from cards import Cards
+from bot_single_commands import *
 
 #yeki too grouh darkhaste sakhte bazi bede
 def create_newgame(gameid,group_name):
@@ -36,7 +37,7 @@ def newround(round_number,thisgame):
     for player in thisgame.player_list:
         yuhuha = min(round_number,5)
         yuhuha_list = [i for i in range(0,yuhuha+1)]
-        yuhuha_answer = askInPV(player,yuhuha_list)
+        yuhuha_answer = askInPV(player, yuhuha_list)
         player._yuhuha = yuhuha_answer
         round_yuhuha.append(yuhuha_answer)
 
@@ -61,7 +62,7 @@ def newset(setstarter, thisgame):
         print("chosed card",this_card)
         #addToTable(this_player,this_card,thisgame)
         set_info.append({this_player.name:this_card})
-        showInGroup(set_info,"set info")
+        showInGroup(thisgame, set_info,"set info")
         setstarter +=1
         setstarter = setstarter % len(thisgame.player_list)
     setwinner = judgment_set(set_info,thisgame)
@@ -73,20 +74,8 @@ def scoreupdate(thisgame):
     for player in thisgame.player_list:
         score.append({player.name:player.totalscore})
     print("score",score)
-    showInGroup(score,"score")
+    showInGroup(thisgame, score,"score")
 
-def showInPV(player,dast):
-    print("show in pv")
-    print(player.name)
-    print(dast)
-    pass
-
-def askInPV(player,choise):#it should return the object
-    print("ask in pv")
-    answer = 0
-    print(choise)
-    answer = int(input(player.name))
-    return choise[answer]
 
 def acceptableCards(thisgame, mycards,set_info):
 
@@ -140,15 +129,9 @@ def acceptableCards(thisgame, mycards,set_info):
 
 def addToTable(player,card,thisgame):
     thisgame.cards_on_table.append({player:card})
-    showInGroup(thisgame.cards_on_table,description="cards on board")
+    showInGroup(thisgame, thisgame.cards_on_table,"cards on board")
     pass
 
-def showInGroup(input,description):
-    print("show in group")
-    print(description)
-    for i in input:
-        print(i)
-    pass
 
 
 def judgment_set(set_info,thisgame):
