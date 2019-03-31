@@ -8,6 +8,8 @@ import senario
 senario.create_newgame(1443,"lsjfsljf")
 
 def on_chat(msg):
+    if not ("text" in msg.keys()) :
+        return None
     if is_valid_create_request(msg):
         print("Creating game!")
         create_button = InlineKeyboardButton(text='Join', url="https://telegram.me/skull_test_bot?start=%d" % msg["chat"]["id"])
@@ -22,12 +24,19 @@ def on_chat(msg):
         skull_bot.sendMessage(msg["chat"]["id"], "The Game Started!")
         senario.starting_game(game_found(msg["chat"]["id"], game_list))
         skull_bot.sendMessage(msg["chat"]["id"], "The Game Started!")
+    elif is_valid_cancel(msg):
+        for g in game_list:
+            if g.game_id == msg["chat"]["id"]: game_list.remove(g)
+        skull_bot.sendMessage(msg["chat"]["id"],"The game just got cancelled!")
     else:
         skull_bot.sendMessage(msg["chat"]["id"], "Invalid message")
 
 
 def on_callback_query(msg):
-    pass
+    if msg["callback_data"][:6] == "yuhuha":
+        pass
+    elif msg["callback_data"][:4] == "card":
+        pass
 
 
 skull_bot = telepot.Bot("754043278:AAEvIPHV-1t_yxooOuUUs4DMbqj2EbhqT_Q")

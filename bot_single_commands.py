@@ -22,4 +22,4 @@ def askInPV(player, dast):
 
 
 def showInGroup(game, input, description):
-    skull_bot.sendMessage(game.game_id, "This is an incomplete function!")
+    skull_bot.sendMessage(game.game_id, "%s\n%s" % (str(input), str(description)))
