@@ -4,20 +4,21 @@ class Game():
     def __init__(self,id):
         self.game_id = id
         self.player_list=[]
-        self.round = 0
         self.cards = Cards
+        self.score_board = {} # {player:score}
+        self.cards_on_table = [] # [{player:card}]
 
 
     def add_player(self,player):
         self.player_list.append(player)
+        self.score_board.add({player:0})
 
-    def strat(self):
-        self.first_player = self.player_list[0]
-        self.player_count = len(self.player_list)
+    def dast_dadan_dar_yek_round(self):
+        pass
 
     def round_up(self):
         self.first_player=self.player_list[self.round % self.player_count ]
-        Cards.__init__()
+
         for player in self.player_list:
             Cards.dast_bede(self.round)
 

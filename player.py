@@ -2,6 +2,7 @@ class Player():
     def __init__(self,player_name):
         self.name = player_name
         self._yuhuha = 0
+        self.mycards = []
         pass
 
     def yuhuha(self,adad):
