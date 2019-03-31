@@ -11,7 +11,7 @@ class Cards():
         for x in range(5):
             cards_list.append({"special":'Pirate'})
         cards_list.append({"special":'Skull King'})
-        cards_list.append({"special":'Tigress'})
+        #cards_list.append({"special":'Tigress'})
         cards_list.append({"special":'Mermaid'})
         cards_list.append({"special":'Mermaid'})
         self.cards_list = cards_list

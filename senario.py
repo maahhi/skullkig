@@ -54,7 +54,7 @@ def newset(setstarter, thisgame):
     for i in range(len(thisgame.player_list)):
         this_player = thisgame.player_list[setstarter]
         mycards = this_player.mycards
-        acceptable_cards = acceptableCards(thisgame,mycards)
+        acceptable_cards = acceptableCards(thisgame,mycards,set_info)
         answer = askInPV(this_player,acceptable_cards)
         card_index = thisgame.player_list[setstarter].mycards.index(answer)
         this_card = thisgame.player_list[setstarter].mycards.pop(card_index)
@@ -64,7 +64,7 @@ def newset(setstarter, thisgame):
         showInGroup(set_info,"set info")
         setstarter +=1
         setstarter = setstarter % len(thisgame.player_list)
-    setwinner = judgment_set(set_info)
+    setwinner = judgment_set(set_info,thisgame)
     print("winner",thisgame.player_list[setwinner].name)
     return setwinner
 
@@ -88,8 +88,55 @@ def askInPV(player,choise):#it should return the object
     answer = int(input(player.name))
     return choise[answer]
 
-def acceptableCards(thisgame, mycards):
-    return mycards
+def acceptableCards(thisgame, mycards,set_info):
+
+    print("acceptableCards")
+    print(set_info)
+    newcards = []
+
+    hokm = None
+    hokm_darim = False
+
+    if len(set_info) > 0 :
+        for c in set_info:
+
+            player_name = list(c)[0]
+            card_ = c[player_name]
+            cardtype = list(card_)[0]
+            cardvariation = card_[cardtype]
+
+            if cardtype is not "special":
+                hokm = cardtype
+                break
+
+    if hokm is not None:
+        for card in mycards:
+            if list(card)[0] is hokm:
+                hokm_darim = True
+
+
+    for card in mycards:
+        if hokm is None:
+            pass
+
+        print(".")
+        if hokm is None:
+            newcards.append(card)
+            print(1)
+        elif hokm_darim is False:
+            newcards.append(card)
+            print(1.1)
+        else :
+            if list(card)[0] is "special":
+                newcards.append(card)
+                print(2)
+            elif list(card)[0] is hokm:
+                newcards.append(card)
+                print(3)
+
+    print("hokm",hokm)
+    print("hokm_darim",hokm_darim)
+    return newcards
 
 def addToTable(player,card,thisgame):
     thisgame.cards_on_table.append({player:card})
@@ -103,8 +150,107 @@ def showInGroup(input,description):
         print(i)
     pass
 
-def judgment_set(set_info):
-    winner = 1 # winner is the index of won player in player_list
+
+def judgment_set(set_info,thisgame):
+    #essencial player_card s
+    print("set info again")
+    print(set_info)
+    bestcard = None
+    bestcard_type = None
+    bestcard_vari = None
+    hokm = None
+    firstmemaid = None
+    skullking = None
+
+    for player_card in set_info:
+        print(player_card)
+        print(bestcard)
+        player_name = list(player_card)[0]
+        card = player_card[player_name]
+        cardtype = list(card)[0]
+        cardvariation = card[cardtype]
+
+        if bestcard == None:
+            print("initial")
+            bestcard = player_card
+            bestcard_type = list(bestcard[list(bestcard)[0]])[0]
+            bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
+            if cardtype is not "special":
+                hokm = cardtype
+            continue
+
+
+        if hokm == None:
+            print("set hokm")
+            if cardtype is not "special":
+                hokm = cardtype
+
+        if cardtype == "special":
+            print("special card")
+            #Mermaid
+            if cardvariation == "Mermaid":
+                print("Mermaid")
+                if firstmemaid in None:
+                    firstmemaid = player_card
+                if bestcard_type == "special":
+                    if bestcard_vari is not 'Escape card':
+                        continue
+                else:
+                    bestcard = player_card
+                    bestcard_type = list(bestcard[list(bestcard)[0]])[0]
+                    bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
+                    continue
+
+            #skull king
+            if cardvariation == "Skull King":
+                print("skull")
+                skullking = player_card
+                bestcard = player_card
+                bestcard_type = list(bestcard[list(bestcard)[0]])[0]
+                bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
+                continue
+
+            #Pirate
+            if cardvariation == "Pirate":
+                print("pirate")
+                if bestcard_vari is not "Skull King":
+                    bestcard = player_card
+                    bestcard_type = list(bestcard[list(bestcard)[0]])[0]
+                    bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
+                    continue
+
+        #not spcecial
+        else:
+            print("not special")
+            if cardtype is hokm:
+                if bestcard_type is not hokm :#or bestcard_type is "Jolly Roger" or bestcard_type is "special": # type check of bestcard
+                    print("hokm but not working")
+                    pass
+                elif cardvariation > bestcard_vari: # variarion check of bestcard
+                    print("hokm with more value")
+                    bestcard = player_card
+                    bestcard_type = list(bestcard[list(bestcard)[0]])[0]
+                    bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
+                    continue
+            elif cardtype == "Jolly Roger" :
+                print("jolly ")
+                if bestcard_type is not "special" or bestcard_vari is not "Escape card":
+                    print("jolly win")
+                    bestcard = player_card
+                    bestcard_type = list(bestcard[list(bestcard)[0]])[0]
+                    bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
+
+
+    if skullking is not None and firstmemaid is not None:
+        bestcard = firstmemaid
+
+    winner = 0  # winner is the index of won player in player_list
+
+    player_name = list(bestcard)[0]
+    for i in range(len(thisgame.player_list)):
+        if player_name == thisgame.player_list[i].name:
+            winner = i
+
     return winner
 
 def judgment_round(round_number,round_info,round_yuhuha,thisgame):
