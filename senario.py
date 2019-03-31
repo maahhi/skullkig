@@ -40,7 +40,7 @@ def newround(round_number,thisgame):
         yuhuha_answer = askInPV(player, yuhuha_list)
         player._yuhuha = yuhuha_answer
         round_yuhuha.append(yuhuha_answer)
-
+    showInGroup(thisgame,round_yuhuha,"yuhuha")
     setstarter = (round_number-1) % len(thisgame.player_list)
     for i in range(round_number):
         print("new set +++++")
