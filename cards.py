@@ -15,7 +15,8 @@ class Cards():
         cards_list.append({"special":'Mermaid'})
         cards_list.append({"special":'Mermaid'})
         self.cards_list = cards_list
-        print(self.cards_list)
+        shuffle(self.cards_list)
+        #print(self.cards_list)
 
     def shuffle(self):
         print("shuffling")
@@ -26,7 +27,7 @@ class Cards():
         dast=[]
         for i in range(chandta):
             dast.append(self.cards_list.pop())
-        print(dast)
+        #print(dast)
         return dast
 
 

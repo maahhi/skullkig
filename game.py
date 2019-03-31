@@ -8,6 +8,7 @@ class Game():
         self.cards = Cards
         #self.score_board = {} # {player:score}
         self.cards_on_table = [] # [{player:card}]
+        self.gamestat = 0
 
 
     def add_player(self,player):
