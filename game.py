@@ -5,13 +5,13 @@ class Game():
         self.game_id = id
         self.player_list=[]
         self.cards = Cards
-        self.score_board = {} # {player:score}
+        #self.score_board = {} # {player:score}
         self.cards_on_table = [] # [{player:card}]
 
 
     def add_player(self,player):
         self.player_list.append(player)
-        self.score_board.update({player:0})
+        #self.score_board.update({player:0})
 
     def dast_dadan_dar_yek_round(self):
         pass

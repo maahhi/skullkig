@@ -1,8 +1,10 @@
 class Player():
-    def __init__(self,player_name):
+    def __init__(self,player_name,id):
         self.name = player_name
+        self.id = id
         self._yuhuha = 0
         self.mycards = []
+        self.totalscore = 0
         pass
 
     def yuhuha(self,adad):

@@ -9,43 +9,43 @@ def create_newgame(gameid):
 
 
 #adam ha be bazi ezafe beshan
-def create_newplayer_for_thisgame(playerIDorNAME,thisgame):
-    newplayer = Player(playerIDorNAME)
+def create_newplayer_for_thisgame(playerNAME,playerid,thisgame):
+    newplayer = Player(playerNAME,playerid)
     thisgame.add_player(newplayer)
 
 
 #bazi shooroo beshe
 def starting_game(thisgame):
-    scoreupdate()
+    scoreupdate(thisgame)
     for i in range(1,11):
         newround(i,thisgame)
 
 
 def newround(round_number,thisgame):
-    thisgame.cards = Cards
+    thisgame.cards = Cards()
     round_yuhuha =  []
-    round_info = {} # player:winsets
+    round_info = [] # player:winsets
     for player in thisgame.player_list:
-        round_info.update({player:0})
+        round_info.append(0)
 
     for player in thisgame.player_list:
         dast = thisgame.cards.dast_bede(round_number)
         player.mycards=dast
-        showInPV(dast, player)
+        showInPV( player,dast)
 
     for player in thisgame.player_list:
         yuhuha = min(round_number,5)
         yuhuha_list = [i for i in range(0,yuhuha+1)]
-        yuhuha_answer = askInPV(yuhuha_list)
+        yuhuha_answer = askInPV(player,yuhuha_list)
         player._yuhuha = yuhuha_answer
         round_yuhuha.append(yuhuha_answer)
 
-    setstarter = round_number % len(thisgame.player_list)
+    setstarter = (round_number-1) % len(thisgame.player_list)
     for i in range(round_number):
-        setstarter = newset(setstarter,thisgame)
+        setstarter = 0#newset(setstarter,thisgame)
         round_info[setstarter]+=1
-    judgment_round(round_info,round_yuhuha,thisgame)
-    scoreupdate()
+    judgment_round(round_number,round_info,round_yuhuha,thisgame)
+    scoreupdate(thisgame)
 
 def newset(setstarter, thisgame):
     set_info = [] # player:card
@@ -53,7 +53,7 @@ def newset(setstarter, thisgame):
         this_player = thisgame.player_list[setstarter]
         mycards = this_player.mycards
         acceptable_cards = acceptableCards(thisgame,mycards)
-        answer = askInPV(acceptable_cards,this_player)
+        answer = askInPV(this_player,acceptable_cards)
         card_index = thisgame.player_list[setstarter].mycards.index(answer)
         this_card = thisgame.player_list[setstarter].mycards.pop(card_index)
         addToTable(this_player,this_card,thisgame)
@@ -65,31 +65,50 @@ def newset(setstarter, thisgame):
     return setwinner
 
 def scoreupdate(thisgame):
-    score={}
-    for el in thisgame.score_board:
-        score.update({el.name:thisgame.score_board[el]})
+    score = []
+    for player in thisgame.player_list:
+        score.append({player.name:player.totalscore})
     print(score)
     showInGroup(score,"score")
 
-def showInPV(dast, player):
+def showInPV( player,dast):
+    print(player.name)
+    print(dast)
     pass
 
-def askInPV(choise, player):
-    answer = 1
+def askInPV(player,choise):#it should return the object
+    answer = 0
+    print(choise)
+    answer = int(input(player.name))
     return answer
 
 def acceptableCards(thisgame, mycards):
     return mycards
 
 def addToTable(player,card,thisgame):
+    thisgame.cards_on_table.append({player:card})
+    showInGroup(thisgame.cards_on_table,description="cards on board")
     pass
 
 def showInGroup(input,description):
+    print(description)
+    for i in input:
+        print(i)
     pass
 
 def judgment_set(set_info):
-    winner = 1
+    winner = 1 # winner is the index of won player in player_list
     return winner
 
-def judgment_round(round_info,round_yuhuha,thisgame):
-    pass
+def judgment_round(round_number,round_info,round_yuhuha,thisgame):
+    for i in range(len(thisgame.player_list)):
+        if round_yuhuha[i] == 0 :
+            if round_info[i] == 0:
+                thisgame.player_list[i].totalscore += 10 * round_number
+            else:
+                thisgame.player_list[i].totalscore -= 10 * round_number
+        else:
+            if round_yuhuha[i]==round_info[i]:
+                thisgame.player_list[i].totalscore += 20 * round_info[i]
+            else:
+                thisgame.player_list[i].totalscore -= 10 * abs(round_info[i] - round_yuhuha[i])
