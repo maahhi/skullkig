@@ -1,11 +1,11 @@
 import telepot
 from telepot.loop import MessageLoop
+from bot import *
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 from msgvalidator import *
-from gamelist import game_list
+from gamelist import game_list, yuhuma_list, card_list
 import senario
-
-senario.create_newgame(1443,"lsjfsljf")
+from threading import Thread
 
 def on_chat(msg):
     if not ("text" in msg.keys()) :
@@ -22,7 +22,9 @@ def on_chat(msg):
         skull_bot.sendMessage(msg["chat"]["id"], "You joined a game of the group ...")
     elif is_valid_start_game(msg):
         skull_bot.sendMessage(msg["chat"]["id"], "The Game Started!")
-        senario.starting_game(game_found(msg["chat"]["id"], game_list))
+        th = Thread(target=senario.starting_game, args=[game_found(msg["chat"]["id"], game_list)])
+        th.start()
+        #senario.starting_game(game_found(msg["chat"]["id"], game_list))
         skull_bot.sendMessage(msg["chat"]["id"], "The Game Started!")
     elif is_valid_cancel(msg):
         for g in game_list:
@@ -33,15 +35,14 @@ def on_chat(msg):
 
 
 def on_callback_query(msg):
-    if msg["callback_data"][:6] == "yuhuha":
-        pass
-    elif msg["callback_data"][:4] == "card":
-        pass
+    print("hello", msg)
+    if msg["data"][:6] == "yuhuha":
+        yuhuma_list.append(int(msg["data"].split()[1]))
+    elif msg["data"][:4] == "card":
+        card_list.append(eval(msg["data"][4:]))
 
 
-skull_bot = telepot.Bot("754043278:AAEvIPHV-1t_yxooOuUUs4DMbqj2EbhqT_Q")
-
-MessageLoop(skull_bot, {"chat": on_chat, 'callback_query': on_callback_query}).run_as_thread()
-
+MessageLoop(skull_bot, {"chat": on_chat, 'callback_query': on_callback_query}).run_as_thread(1)
+#MessageLoop(skull_bot, {"chat": on_chat, 'callback_query': on_callback_query}).run_as_thread(2)
 while 1:
     pass
