@@ -1,8 +1,9 @@
 from player import Player
 from cards import Cards
 class Game():
-    def __init__(self,id):
+    def __init__(self,id,group):
         self.game_id = id
+        self.group_name = group
         self.player_list=[]
         self.cards = Cards
         #self.score_board = {} # {player:score}
