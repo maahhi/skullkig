@@ -8,6 +8,12 @@ def game_found(iden, gl):
             break
     return False
 
+def is_member_of_the_game(player_id,game):
+    for p in game.player_list:
+        if p.id == player_id:
+            return True
+            break
+    return False
 
 def is_valid_create_request(msg):
     if msg["chat"]["type"] == "group" and msg["text"] == "/create_game@skull_test_bot":
@@ -21,7 +27,9 @@ def is_valid_create_request(msg):
 
 def is_valid_join_request(msg):
     if msg["chat"]["type"] == "private" and msg["text"][0:6] == "/start":
-        return True
+        if not is_member_of_the_game(msg["chat"]["id"],game_found(int(msg["text"].split()[1]) ,game_list)):
+            return True
+        else: return False
     else:
         return False
 
