@@ -11,7 +11,7 @@ class Game():
 
     def add_player(self,player):
         self.player_list.append(player)
-        self.score_board.add({player:0})
+        self.score_board.update({player:0})
 
     def dast_dadan_dar_yek_round(self):
         pass

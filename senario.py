@@ -22,7 +22,6 @@ def starting_game(thisgame):
 
 
 def newround(round_number,thisgame):
-
     thisgame.cards = Cards
     round_yuhuha =  []
     round_info = {} # player:winsets
@@ -65,8 +64,12 @@ def newset(setstarter, thisgame):
     setwinner = judgment_set(set_info)
     return setwinner
 
-def scoreupdate():
-    pass
+def scoreupdate(thisgame):
+    score={}
+    for el in thisgame.score_board:
+        score.update({el.name:thisgame.score_board[el]})
+    print(score)
+    showInGroup(score,"score")
 
 def showInPV(dast, player):
     pass
@@ -81,7 +84,7 @@ def acceptableCards(thisgame, mycards):
 def addToTable(player,card,thisgame):
     pass
 
-def showInGroup():
+def showInGroup(input,description):
     pass
 
 def judgment_set(set_info):
