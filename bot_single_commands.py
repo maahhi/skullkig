@@ -16,8 +16,8 @@ def yuhuhaAskInPV(player, dast):
     for item in dast:
         button_list.append(InlineKeyboardButton(text=item, callback_data='yuhuha %d %d' % (player.id, item)))
     qkeyboard = InlineKeyboardMarkup(inline_keyboard=[button_list])
-    skull_bot.sendMessage(player.id, "This is your dast!", reply_markup=qkeyboard)
-
+    v = skull_bot.sendMessage(player.id, "Claim your YUHUHA!", reply_markup=qkeyboard)
+    print("v", v)
     while 1:
         time.sleep(0)
         for itr in range(len(yuhuma_list)):
@@ -31,7 +31,7 @@ def cardAskInPV(player, dast):
     for item in dast:
         button_list.append(InlineKeyboardButton(text=str(item), callback_data='card [%d, %s]' % (player.id, str(item))))
     qkeyboard = InlineKeyboardMarkup(inline_keyboard=[button_list])
-    skull_bot.sendMessage(player.id, "This is your dast!", reply_markup=qkeyboard)
+    skull_bot.sendMessage(player.id, "Pick your card!", reply_markup=qkeyboard)
     while 1:
         time.sleep(0)
         for itr in range(len(card_list)):
