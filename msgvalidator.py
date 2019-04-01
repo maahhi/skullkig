@@ -18,7 +18,7 @@ def is_member_of_the_game(player_id, game):
 
 
 def is_valid_create_request(msg):
-    if msg["chat"]["type"] == "group" and msg["text"][:12] == "/create_game":
+    if ("group" in msg["chat"]["type"]) and msg["text"][:12] == "/create_game":
         if not game_found(msg["chat"]["id"], game_list):
             return True
         else:
@@ -36,7 +36,7 @@ def is_valid_join_request(msg):
         return False
 
 def is_valid_start_game(msg):
-    if msg["chat"]["type"] == "group" and msg["text"][:11] == "/start_game":
+    if ("group" in msg["chat"]["type"]) and msg["text"][:11] == "/start_game":
         if game_found(msg["chat"]["id"], game_list):
             return True
         else:
@@ -46,7 +46,7 @@ def is_valid_start_game(msg):
         return False
 
 def is_valid_cancel(msg):
-    if msg["chat"]["type"] == "group" and msg["text"][:12] == "/cancel_game":
+    if ("group" in msg["chat"]["type"]) and msg["text"][:12] == "/cancel_game":
         if game_found(msg["chat"]["id"], game_list):
             return True
         else:

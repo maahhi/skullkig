@@ -31,6 +31,7 @@ def on_chat(msg):
             if g.game_id == msg["chat"]["id"]: game_list.remove(g)
         skull_bot.sendMessage(msg["chat"]["id"],"The game just got cancelled!")
     else:
+        print(msg)
         skull_bot.sendMessage(msg["chat"]["id"], "Invalid message")
 
 
