@@ -17,6 +17,7 @@ def create_newplayer_for_thisgame(playerNAME,playerid,thisgame):
 
 #bazi shooroo beshe
 def starting_game(thisgame):
+    thisgame.gamestat = 1
     scoreupdate(thisgame)
     for i in range(1,11):
         newround(i,thisgame)
