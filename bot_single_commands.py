@@ -1,7 +1,8 @@
 import telepot
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
-skull_bot = telepot.Bot("754043278:AAEvIPHV-1t_yxooOuUUs4DMbqj2EbhqT_Q")
-
+from bot import *
+import time
+from gamelist import yuhuma_list,card_list
 
 def showInPV(player, choice):
     text = ""
@@ -10,16 +11,27 @@ def showInPV(player, choice):
     skull_bot.sendMessage(player.id, text)
 
 
-def askInPV(player, dast):
+def yuhuhaAskInPV(player, dast):
     button_list = []
     for item in dast:
-        i = str(item)
-        print(i)
-        button_list.append(InlineKeyboardButton(text=i, callback_data='press'))
-        print(button_list)
+        button_list.append(InlineKeyboardButton(text=item, callback_data='yuhuha %d' %item))
     qkeyboard = InlineKeyboardMarkup(inline_keyboard=[button_list])
     skull_bot.sendMessage(player.id, "This is your dast!", reply_markup=qkeyboard)
 
+    while 1:
+        time.sleep(0)
+        if yuhuma_list != []:
+            return yuhuma_list.pop()
 
+def cardAskInPV(player, dast):
+    button_list = []
+    for item in dast:
+        button_list.append(InlineKeyboardButton(text=str(item), callback_data='card %s' % str(item)))
+    qkeyboard = InlineKeyboardMarkup(inline_keyboard=[button_list])
+    skull_bot.sendMessage(player.id, "This is your dast!", reply_markup=qkeyboard)
+    while 1:
+        time.sleep(0)
+        if card_list != []:
+            return card_list.pop()
 def showInGroup(game, input, description):
     skull_bot.sendMessage(game.game_id, "%s\n%s" % (str(input), str(description)))
