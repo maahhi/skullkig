@@ -3,6 +3,20 @@ from player import Player
 from cards import Cards
 from bot_single_commands import *
 
+
+
+
+e_naghshe = u'\U0001f604'
+e_ganj = u'\U0001f604'
+e_Jolly_Roger = u'\U0001f604'
+e_tooti = u'\U0001f604'
+e_Escape = u'\U0001f604'
+e_Pirate = u'\U0001f604'
+e_Skull_King = u'\U0001f604'
+e_Mermaid = u'\U0001f604'
+
+
+
 #yeki too grouh darkhaste sakhte bazi bede
 def create_newgame(gameid,group_name):
     newgame = Game(gameid,group_name)
@@ -172,12 +186,12 @@ def judgment_set(set_info,thisgame):
         if cardtype == "special":
             #print("special card")
             #Mermaid
-            if cardvariation == "Mermaid":
+            if cardvariation == "Mermaid"+e_Mermaid:
                 #print("Mermaid")
                 if firstmemaid is None:
                     firstmemaid = player_card
                 if bestcard_type == "special":
-                    if bestcard_vari is not 'Escape card':
+                    if bestcard_vari is not 'Escape'+e_Escape:
                         continue
                 else:
                     bestcard = player_card
@@ -186,7 +200,7 @@ def judgment_set(set_info,thisgame):
                     continue
 
             #skull king
-            if cardvariation == "Skull King":
+            if cardvariation == "Skull King"+e_Skull_King:
                 #print("skull")
                 skullking = player_card
                 bestcard = player_card
@@ -195,9 +209,9 @@ def judgment_set(set_info,thisgame):
                 continue
 
             #Pirate
-            if cardvariation == "Pirate":
+            if cardvariation == "Pirate"+e_Pirate:
                 #print("pirate")
-                if bestcard_vari is not "Skull King":
+                if bestcard_vari is not "Skull King"+e_Skull_King:
                     bestcard = player_card
                     bestcard_type = list(bestcard[list(bestcard)[0]])[0]
                     bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
@@ -216,9 +230,9 @@ def judgment_set(set_info,thisgame):
                     bestcard_type = list(bestcard[list(bestcard)[0]])[0]
                     bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
                     continue
-            elif cardtype == "Jolly Roger" :
+            elif cardtype == "Jolly Roger"+e_Jolly_Roger :
                 #print("jolly ")
-                if bestcard_type is not "special" or bestcard_vari is not "Escape card":
+                if bestcard_type is not "special" or bestcard_vari is not "Escape"+e_Escape:
                     #print("jolly win")
                     bestcard = player_card
                     bestcard_type = list(bestcard[list(bestcard)[0]])[0]

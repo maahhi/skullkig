@@ -10,32 +10,11 @@ def showInPV(player, choice):
         card_type = str(list(card.keys())[0])
         card_vari = str(list(card.values())[0])
 
-        if card_type == "special":
-            text += card_vari
-            if card_vari == "Escape card":
-                text += ""
-            if card_vari == "Pirate":
-                text += "💀"
-            if card_vari == "Skull King":
-                text += ""
-            if card_vari == "Mermaid":
-                text += "🧜‍♀"
-        else:
+        if card_type is not "special":
             text += card_type + " "
 
-            if card_type == "special":
-                pass
-            elif card_type == "special":
-                pass
-            elif card_type == "special":
-                pass
-
-            text += card_vari
-
-        #text += (str(list(card.keys())[0]) + " " + str(list(card.values())[0]) + "\n")
+        text += card_vari + " "
         text += '\n'
-        text += u'\U0001f604'
-        text += u'\U0001f480'
     skull_bot.sendMessage(player.id, text)
 
 
@@ -75,7 +54,7 @@ def showInGroup(game, input, description):
     msg += description
     msg += "\n"
     for x in input:
-        if type(input) == type(instantdic):
+        if type(input) == type({'maahhi_in_blue': 0}):
             username = str(list(x.keys())[0])
             score = str(list(x.values())[0])
             msg+= username+" : "+score
