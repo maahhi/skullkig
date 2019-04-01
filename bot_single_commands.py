@@ -53,14 +53,17 @@ def showInGroup(game, input, description):
     msg = ""
     msg += description
     msg += "\n"
-    for x in input:
-        if type(x) == type({'maahhi_in_blue': 0}):
-            username = str(list(x.keys())[0])
-            score = str(list(x.values())[0])
-            msg+= username+" : "+score
-        else:
-            msg += str(x)
-        msg+="\n"
+    if type(input)==type("string"):
+        msg += input
+    else:
+        for x in input:
+            if type(x) == type({'maahhi_in_blue': 0}):
+                username = str(list(x.keys())[0])
+                score = str(list(x.values())[0])
+                msg+= username+" : "+score
+            else:
+                msg += str(x)
+            msg+="\n"
 
     skull_bot.sendMessage(game.game_id, msg)
 
