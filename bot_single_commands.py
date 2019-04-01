@@ -75,7 +75,7 @@ def showInGroup(game, input, description):
     msg += description
     msg += "\n"
     for x in input:
-        if type(input) == type(instantdic):
+        if type(x) == type({'maahhi_in_blue': 0}):
             username = str(list(x.keys())[0])
             score = str(list(x.values())[0])
             msg+= username+" : "+score
