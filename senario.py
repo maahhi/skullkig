@@ -44,14 +44,14 @@ def newround(round_number,thisgame):
     showInGroup(thisgame,round_yuhuha,"yuhuha")
     setstarter = (round_number-1) % len(thisgame.player_list)
     for i in range(round_number):
-        print("new set +++++")
+        #print("new set +++++")
         setstarter = newset(setstarter,thisgame)
         round_info[setstarter]+=1
     judgment_round(round_number,round_info,round_yuhuha,thisgame)
     scoreupdate(thisgame)
 
 def newset(setstarter, thisgame):
-    print("set starter index:",setstarter)
+    #print("set starter index:",setstarter)
     set_info = [] # player_name:card
     for i in range(len(thisgame.player_list)):
         this_player = thisgame.player_list[setstarter]
@@ -60,28 +60,28 @@ def newset(setstarter, thisgame):
         answer = cardAskInPV(this_player,acceptable_cards)
         card_index = thisgame.player_list[setstarter].mycards.index(answer)
         this_card = thisgame.player_list[setstarter].mycards.pop(card_index)
-        print("chosed card",this_card)
+        #print("chosed card",this_card)
         #addToTable(this_player,this_card,thisgame)
         set_info.append({this_player.name:this_card})
-        showInGroup(thisgame, set_info,"set info")
+        showInGroup(thisgame, set_info,"cards on board")
         setstarter +=1
         setstarter = setstarter % len(thisgame.player_list)
     setwinner = judgment_set(set_info,thisgame)
-    print("winner",thisgame.player_list[setwinner].name)
+    #print("winner",thisgame.player_list[setwinner].name)
     return setwinner
 
 def scoreupdate(thisgame):
     score = []
     for player in thisgame.player_list:
         score.append({player.name:player.totalscore})
-    print("score",score)
+    #print("score",score)
     showInGroup(thisgame, score,"score")
 
 
 def acceptableCards(thisgame, mycards,set_info):
 
-    print("acceptableCards")
-    print(set_info)
+    #print("acceptableCards")
+    #print(set_info)
     newcards = []
 
     hokm = None
@@ -109,23 +109,23 @@ def acceptableCards(thisgame, mycards,set_info):
         if hokm is None:
             pass
 
-        print(".")
+        #print(".")
         if hokm is None:
             newcards.append(card)
-            print(1)
+            #print(1)
         elif hokm_darim is False:
             newcards.append(card)
-            print(1.1)
+            #print(1.1)
         else :
             if list(card)[0] is "special":
                 newcards.append(card)
-                print(2)
+                #print(2)
             elif list(card)[0] is hokm:
                 newcards.append(card)
-                print(3)
+                #print(3)
 
-    print("hokm",hokm)
-    print("hokm_darim",hokm_darim)
+    #print("hokm",hokm)
+    #print("hokm_darim",hokm_darim)
     return newcards
 
 def addToTable(player,card,thisgame):
@@ -137,8 +137,8 @@ def addToTable(player,card,thisgame):
 
 def judgment_set(set_info,thisgame):
     #essencial player_card s
-    print("set info again")
-    print(set_info)
+    #print("set info again")
+    #print(set_info)
     bestcard = None
     bestcard_type = None
     bestcard_vari = None
@@ -147,15 +147,15 @@ def judgment_set(set_info,thisgame):
     skullking = None
 
     for player_card in set_info:
-        print(player_card)
-        print(bestcard)
+        #print(player_card)
+        #print(bestcard)
         player_name = list(player_card)[0]
         card = player_card[player_name]
         cardtype = list(card)[0]
         cardvariation = card[cardtype]
 
         if bestcard == None:
-            print("initial")
+            #print("initial")
             bestcard = player_card
             bestcard_type = list(bestcard[list(bestcard)[0]])[0]
             bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
@@ -165,15 +165,15 @@ def judgment_set(set_info,thisgame):
 
 
         if hokm == None:
-            print("set hokm")
+            #print("set hokm")
             if cardtype is not "special":
                 hokm = cardtype
 
         if cardtype == "special":
-            print("special card")
+            #print("special card")
             #Mermaid
             if cardvariation == "Mermaid":
-                print("Mermaid")
+                #print("Mermaid")
                 if firstmemaid is None:
                     firstmemaid = player_card
                 if bestcard_type == "special":
@@ -187,7 +187,7 @@ def judgment_set(set_info,thisgame):
 
             #skull king
             if cardvariation == "Skull King":
-                print("skull")
+                #print("skull")
                 skullking = player_card
                 bestcard = player_card
                 bestcard_type = list(bestcard[list(bestcard)[0]])[0]
@@ -196,7 +196,7 @@ def judgment_set(set_info,thisgame):
 
             #Pirate
             if cardvariation == "Pirate":
-                print("pirate")
+                #print("pirate")
                 if bestcard_vari is not "Skull King":
                     bestcard = player_card
                     bestcard_type = list(bestcard[list(bestcard)[0]])[0]
@@ -205,21 +205,21 @@ def judgment_set(set_info,thisgame):
 
         #not spcecial
         else:
-            print("not special")
+            #print("not special")
             if cardtype is hokm:
                 if bestcard_type is not hokm :#or bestcard_type is "Jolly Roger" or bestcard_type is "special": # type check of bestcard
-                    print("hokm but not working")
+                    #print("hokm but not working")
                     pass
                 elif cardvariation > bestcard_vari: # variarion check of bestcard
-                    print("hokm with more value")
+                    #print("hokm with more value")
                     bestcard = player_card
                     bestcard_type = list(bestcard[list(bestcard)[0]])[0]
                     bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
                     continue
             elif cardtype == "Jolly Roger" :
-                print("jolly ")
+                #print("jolly ")
                 if bestcard_type is not "special" or bestcard_vari is not "Escape card":
-                    print("jolly win")
+                    #print("jolly win")
                     bestcard = player_card
                     bestcard_type = list(bestcard[list(bestcard)[0]])[0]
                     bestcard_vari = bestcard[player_name][list(bestcard[list(bestcard)[0]])[0]]
