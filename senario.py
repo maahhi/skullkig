@@ -63,7 +63,7 @@ def newset(setstarter, thisgame):
         #print("chosed card",this_card)
         #addToTable(this_player,this_card,thisgame)
         set_info.append({this_player.name:this_card})
-        showInGroup(thisgame, set_info,"set info")
+        showInGroup(thisgame, set_info,"cards on board")
         setstarter +=1
         setstarter = setstarter % len(thisgame.player_list)
     setwinner = judgment_set(set_info,thisgame)
