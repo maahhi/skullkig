@@ -21,7 +21,6 @@ def on_chat(msg):
         senario.create_newplayer_for_thisgame(msg["chat"]["username"], msg["chat"]["id"], game_found(int(msg["text"].split()[1]), game_list))
         skull_bot.sendMessage(msg["chat"]["id"], "You joined a game of the group ...")
     elif is_valid_start_game(msg):
-        skull_bot.sendMessage(msg["chat"]["id"], "The Game Started!")
         th = Thread(target=senario.starting_game, args=[game_found(msg["chat"]["id"], game_list)])
         th.start()
         #senario.starting_game(game_found(msg["chat"]["id"], game_list))
