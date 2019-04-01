@@ -37,7 +37,7 @@ def newround(round_number,thisgame):
     for player in thisgame.player_list:
         yuhuha = min(round_number,5)
         yuhuha_list = [i for i in range(0,yuhuha+1)]
-        yuhuha_answer = yuhuhaAskInPV(player, yuhuha_list)
+        yuhuha_answer = (yuhuhaAskInPV(player, yuhuha_list))[1]
         player._yuhuha = yuhuha_answer
         round_yuhuha.append(yuhuha_answer)
     showInGroup(thisgame,round_yuhuha,"yuhuha")
