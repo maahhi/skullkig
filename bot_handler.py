@@ -39,9 +39,11 @@ def on_callback_query(msg):
     print("hello", msg)
     if msg["data"][:6] == "yuhuha":
         yuhuma_list.append([int(msg["data"].split()[1]), int(msg["data"].split()[2])])
+        skull_bot.deleteMessage(telepot.message_identifier(msg["message"]))
     elif msg["data"][:4] == "card":
         print(msg["data"])
         card_list.append(eval(msg["data"][4:]))
+        skull_bot.deleteMessage(telepot.message_identifier(msg["message"]))
 
 
 MessageLoop(skull_bot, {"chat": on_chat, 'callback_query': on_callback_query}).run_as_thread(1)
