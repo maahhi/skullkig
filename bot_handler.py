@@ -37,8 +37,9 @@ def on_chat(msg):
 def on_callback_query(msg):
     print("hello", msg)
     if msg["data"][:6] == "yuhuha":
-        yuhuma_list.append(int(msg["data"].split()[1]))
+        yuhuma_list.append([int(msg["data"].split()[1]), int(msg["data"].split()[2])])
     elif msg["data"][:4] == "card":
+        print(msg["data"])
         card_list.append(eval(msg["data"][4:]))
 
 
