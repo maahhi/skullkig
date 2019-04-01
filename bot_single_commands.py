@@ -70,7 +70,7 @@ def cardAskInPV(player, dast):
 
 
 def showInGroup(game, input, description):
-    instantdic = {}
+    instantdic = dict()
     msg = ""
     msg += description
     msg += "\n"
@@ -80,7 +80,7 @@ def showInGroup(game, input, description):
             score = str(list(x.values())[0])
             msg+= username+" : "+score
         else:
-            msg += x
+            msg += str(x)
         msg+="\n"
 
     skull_bot.sendMessage(game.game_id, msg)
