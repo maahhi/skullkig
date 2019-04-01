@@ -5,15 +5,14 @@ from bot_single_commands import *
 
 
 
-
-e_naghshe = u'\U0001f604'
-e_ganj = u'\U0001f604'
-e_Jolly_Roger = u'\U0001f604'
-e_tooti = u'\U0001f604'
-e_Escape = u'\U0001f604'
-e_Pirate = u'\U0001f604'
-e_Skull_King = u'\U0001f604'
-e_Mermaid = u'\U0001f604'
+e_naghshe = u'\U0001f4dc'
+e_ganj = u'\U0001f4b0'
+e_Jolly_Roger = u'\U0001f3f4'
+e_tooti = u'\U0001f99c'
+e_Escape = u'\U0001f3f3'
+e_Pirate = u'\U0001f480'
+e_Skull_King = u'\U0001f451'
+e_Mermaid = u'\U0001f9dc'
 
 
 
@@ -55,11 +54,18 @@ def newround(round_number,thisgame):
         yuhuha_answer = (yuhuhaAskInPV(player, yuhuha_list))[1]
         player._yuhuha = yuhuha_answer
         round_yuhuha.append(yuhuha_answer)
-    showInGroup(thisgame,round_yuhuha,"yuhuha")
+    yuhuha_showingp = []
+    i=0
+    for player in thisgame.player_list:
+        yuhuha_showingp.append({player.name:round_yuhuha[i]})
+        yuhuha_showingp.append({player.name:round_yuhuha[i]})
+        i+=0
+    showInGroup(thisgame,yuhuha_showingp,"yuhuha")
     setstarter = (round_number-1) % len(thisgame.player_list)
     for i in range(round_number):
         #print("new set +++++")
         setstarter = newset(setstarter,thisgame)
+        showInGroup(thisgame,thisgame.player_list[setstarter].name,"winner")
         round_info[setstarter]+=1
     judgment_round(round_number,round_info,round_yuhuha,thisgame)
     scoreupdate(thisgame)

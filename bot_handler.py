@@ -6,8 +6,10 @@ from msgvalidator import *
 from gamelist import game_list, yuhuma_list, card_list
 import senario
 from threading import Thread
+import time
 
 def on_chat(msg):
+    print("?")
     if not ("text" in msg.keys()) :
         return None
     if is_valid_create_request(msg):
@@ -35,6 +37,7 @@ def on_chat(msg):
 
 
 def on_callback_query(msg):
+    print("!")
     print("hello", msg)
     if msg["data"][:6] == "yuhuha":
         yuhuma_list.append([int(msg["data"].split()[1]), int(msg["data"].split()[2])])
@@ -48,4 +51,4 @@ def on_callback_query(msg):
 MessageLoop(skull_bot, {"chat": on_chat, 'callback_query': on_callback_query}).run_as_thread(1)
 #MessageLoop(skull_bot, {"chat": on_chat, 'callback_query': on_callback_query}).run_as_thread(2)
 while 1:
-    pass
+    time.sleep(0)
