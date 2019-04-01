@@ -44,8 +44,8 @@ def yuhuhaAskInPV(player, dast):
     for item in dast:
         button_list.append(InlineKeyboardButton(text=item, callback_data='yuhuha %d %d' % (player.id, item)))
     qkeyboard = InlineKeyboardMarkup(inline_keyboard=[button_list])
-    v = skull_bot.sendMessage(player.id, "Claim your YUHUHA!", reply_markup=qkeyboard)
-    print("v", v)
+    msg_rcv = skull_bot.sendMessage(player.id, "Claim your YUHUHA!", reply_markup=qkeyboard)
+
     while 1:
         time.sleep(0)
         for itr in range(len(yuhuma_list)):

@@ -37,8 +37,11 @@ def is_valid_join_request(msg):
 
 def is_valid_start_game(msg):
     if ("group" in msg["chat"]["type"]) and msg["text"][:11] == "/start_game":
-        if game_found(msg["chat"]["id"], game_list):
-            return True
+        g = game_found(msg["chat"]["id"], game_list)
+        if g:
+            if g.gamestat == 0:
+                return True
+            else: return False
         else:
             print("code comes here!")
             return False
