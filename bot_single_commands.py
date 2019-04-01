@@ -8,6 +8,7 @@ def showInPV(player, choice):
     text = ""
     for card in choice:
         text += (str(list(card.keys())[0]) + " " + str(list(card.values())[0]) + "\n")
+        text += ''
     skull_bot.sendMessage(player.id, text)
 
 
@@ -42,4 +43,14 @@ def cardAskInPV(player, dast):
 
 
 def showInGroup(game, input, description):
-    skull_bot.sendMessage(game.game_id, "%s\n%s" % (str(input), str(description)))
+    msg = ""
+    msg += description
+    msg += "\n"
+    for x in input:
+        username = str(list(x.keys())[0])
+        score = str(list(x.values())[0])
+        msg+= username+" : "+score
+        msg+="\n"
+
+    skull_bot.sendMessage(game.game_id, msg)
+
