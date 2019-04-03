@@ -51,4 +51,4 @@ def on_callback_query(msg):
 MessageLoop(skull_bot, {"chat": on_chat, 'callback_query': on_callback_query}).run_as_thread(1)
 #MessageLoop(skull_bot, {"chat": on_chat, 'callback_query': on_callback_query}).run_as_thread(2)
 while 1:
-    time.sleep(0)
+    time.sleep(10)
