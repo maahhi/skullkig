@@ -1,0 +1,8 @@
+e_naghshe = u'\U0001f4dc'
+e_ganj = u'\U0001f4b0'
+e_Jolly_Roger = u'\U0001f3f4'
+e_tooti = u'\U0001f99c'
+e_Escape = u'\U0001f3f3'
+e_Pirate = u'\U0001f480'
+e_Skull_King = u'\U0001f451'
+e_Mermaid = u'\U0001f9dc'
