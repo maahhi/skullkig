@@ -20,12 +20,12 @@ def game():
 
 
 def test_judgment_set_simple_00(game):
-    simpleCard = 'naghshe'+e_naghshe
+    simple_card = 'naghshe' + e_naghshe
     info = [
-        {'Player0': {simpleCard: 13}},
-        {'Player1': {simpleCard: 8}},
-        {'Player2': {simpleCard: 5}},
-        {'Player3': {simpleCard: 1}}
+        {'Player0': {simple_card: 13}},
+        {'Player1': {simple_card: 1}},
+        {'Player2': {simple_card: 8}},
+        {'Player3': {simple_card: 5}}
     ]
 
     for _ in range(4):
@@ -34,13 +34,13 @@ def test_judgment_set_simple_00(game):
 
 
 def test_judgment_set_simple_01(game):
-    simpleCard1 = 'naghshe' + e_naghshe
-    simpleCard2 = 'ganj'+e_ganj
+    simple_card1 = 'naghshe' + e_naghshe
+    simple_card2 = 'ganj' + e_ganj
     info = [
-        {'Player0': {simpleCard1: 13}},
-        {'Player1': {simpleCard2: 8}},
-        {'Player2': {simpleCard1: 5}},
-        {'Player3': {simpleCard2: 1}}
+        {'Player0': {simple_card1: 13}},
+        {'Player1': {simple_card2: 8}},
+        {'Player2': {simple_card1: 5}},
+        {'Player3': {simple_card2: 1}}
     ]
 
     for _ in range(2):
@@ -55,13 +55,30 @@ def test_judgment_set_simple_01(game):
 
 
 def test_judgment_set_simple_02(game):
-    simpleCard1 = 'naghshe' + e_naghshe
-    simpleCard2 = 'ganj' + e_ganj
-    simpleCard3 = 'tooti'+e_tooti
+    simple_card1 = 'ganj' + e_ganj
+    simple_card2 = 'tooti' + e_tooti
     info = [
-        {'Player0': {simpleCard1: 13}},
-        {'Player1': {simpleCard2: 12}},
-        {'Player2': {simpleCard3: 11}}
+        {'Player0': {simple_card1: 1}},
+        {'Player1': {simple_card1: 7}},
+        {'Player2': {simple_card1: 10}},
+        {'Player3': {simple_card2: 5}}
+    ]
+
+    info.insert(0, info.pop())
+    assert judgment_set(info, game) == 3
+    for _ in range(3):
+        info.insert(0, info.pop())
+        assert judgment_set(info, game) == 2
+
+
+def test_judgment_set_simple_03(game):
+    simple_card1 = 'naghshe' + e_naghshe
+    simple_card2 = 'ganj' + e_ganj
+    simple_card3 = 'tooti' + e_tooti
+    info = [
+        {'Player0': {simple_card1: 13}},
+        {'Player1': {simple_card2: 12}},
+        {'Player2': {simple_card3: 11}}
     ]
 
     for i in range(2):
