@@ -1,3 +1,5 @@
+import pytest
+
 from card_emojies import *
 
 from game import Game
@@ -5,7 +7,19 @@ from player import Player
 from senario import judgment_set
 
 
-def test_judgment_set_simple_00():
+@pytest.fixture(scope="module")
+def game():
+    game_instance = Game(0, 0)
+    game_instance.player_list = [
+        Player('Player0', 0),
+        Player('Player1', 1),
+        Player('Player2', 2),
+        Player('Player3', 3)
+    ]
+    return game_instance
+
+
+def test_judgment_set_simple_00(game):
     simpleCard = 'naghshe'+e_naghshe
     info = [
         {'Player0': {simpleCard: 13}},
@@ -14,20 +28,12 @@ def test_judgment_set_simple_00():
         {'Player3': {simpleCard: 1}}
     ]
 
-    game = Game(0, 0)
-    game.player_list = [
-        Player('Player0', 0),
-        Player('Player1', 1),
-        Player('Player2', 2),
-        Player('Player3', 3)
-    ]
-
     for _ in range(4):
         info.insert(0, info.pop())
         assert judgment_set(info, game) == 0
 
 
-def test_judgment_set_simple_01():
+def test_judgment_set_simple_01(game):
     simpleCard1 = 'naghshe' + e_naghshe
     simpleCard2 = 'ganj'+e_ganj
     info = [
@@ -35,14 +41,6 @@ def test_judgment_set_simple_01():
         {'Player1': {simpleCard2: 8}},
         {'Player2': {simpleCard1: 5}},
         {'Player3': {simpleCard2: 1}}
-    ]
-
-    game = Game(0, 0)
-    game.player_list = [
-        Player('Player0', 0),
-        Player('Player1', 1),
-        Player('Player2', 2),
-        Player('Player3', 3)
     ]
 
     for _ in range(2):
@@ -56,7 +54,7 @@ def test_judgment_set_simple_01():
         assert judgment_set(info, game) == 1
 
 
-def test_judgment_set_simple_02():
+def test_judgment_set_simple_02(game):
     simpleCard1 = 'naghshe' + e_naghshe
     simpleCard2 = 'ganj' + e_ganj
     simpleCard3 = 'tooti'+e_tooti
@@ -64,13 +62,6 @@ def test_judgment_set_simple_02():
         {'Player0': {simpleCard1: 13}},
         {'Player1': {simpleCard2: 12}},
         {'Player2': {simpleCard3: 11}}
-    ]
-
-    game = Game(0, 0)
-    game.player_list = [
-        Player('Player0', 0),
-        Player('Player1', 1),
-        Player('Player2', 2)
     ]
 
     for i in range(2):
