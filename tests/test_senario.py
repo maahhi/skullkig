@@ -45,13 +45,9 @@ def test_judgment_set_simple_01(game):
 
     for _ in range(2):
         info.insert(0, info.pop())
+        assert judgment_set(info, game) == 1
         info.insert(0, info.pop())
         assert judgment_set(info, game) == 0
-    info.insert(0, info.pop())
-    for _ in range(2):
-        info.insert(0, info.pop())
-        info.insert(0, info.pop())
-        assert judgment_set(info, game) == 1
 
 
 def test_judgment_set_simple_02(game):
@@ -86,3 +82,61 @@ def test_judgment_set_simple_03(game):
         info.insert(0, info.pop())
         assert judgment_set(info, game) == 2-i
 
+
+def test_judgment_set_jolly_00(game):
+    jolly_card = 'Jolly Roger' + e_Jolly_Roger
+    info = [
+        {'Player0': {jolly_card: 13}},
+        {'Player1': {jolly_card: 1}},
+        {'Player2': {jolly_card: 8}},
+        {'Player3': {jolly_card: 5}}
+    ]
+
+    for _ in range(4):
+        info.insert(0, info.pop())
+        assert judgment_set(info, game) == 0
+
+
+def test_judgment_set_jolly_01(game):
+    simple_card = 'naghshe' + e_naghshe
+    jolly_card = 'Jolly Roger' + e_Jolly_Roger
+    info = [
+        {'Player0': {jolly_card: 1}},
+        {'Player1': {simple_card: 13}},
+        {'Player2': {simple_card: 5}},
+        {'Player3': {simple_card: 8}}
+    ]
+
+    for _ in range(4):
+        info.insert(0, info.pop())
+        assert judgment_set(info, game) == 0
+
+
+def test_judgment_set_jolly_02(game):
+    simple_card = 'naghshe' + e_naghshe
+    jolly_card = 'Jolly Roger' + e_Jolly_Roger
+    info = [
+        {'Player0': {jolly_card: 9}},
+        {'Player1': {simple_card: 13}},
+        {'Player2': {jolly_card: 5}},
+        {'Player3': {simple_card: 8}}
+    ]
+
+    for _ in range(4):
+        info.insert(0, info.pop())
+        assert judgment_set(info, game) == 0
+
+
+def test_judgment_set_jolly_03(game):
+    simple_card = 'naghshe' + e_naghshe
+    jolly_card = 'Jolly Roger' + e_Jolly_Roger
+    info = [
+        {'Player0': {simple_card: 13}},
+        {'Player1': {jolly_card: 9}},
+        {'Player2': {jolly_card: 12}},
+        {'Player3': {jolly_card: 5}}
+    ]
+
+    for _ in range(4):
+        info.insert(0, info.pop())
+        assert judgment_set(info, game) == 2
