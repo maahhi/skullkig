@@ -36,19 +36,16 @@ def newround(round_number,thisgame):
         dast = thisgame.cards.dast_bede(round_number)
         player.mycards=dast
         showInPV( player,dast)
-
+    yuhuha_showingp = []
     for player in thisgame.player_list:
+        name = player.name
         yuhuha = min(round_number,5)
         yuhuha_list = [i for i in range(0,yuhuha+1)]
         yuhuha_answer = (yuhuhaAskInPV(player, yuhuha_list))[1]
         player._yuhuha = yuhuha_answer
         round_yuhuha.append(yuhuha_answer)
-    yuhuha_showingp = []
-    i=0
-    for player in thisgame.player_list:
-        yuhuha_showingp.append({player.name:round_yuhuha[i]})
-        yuhuha_showingp.append({player.name:round_yuhuha[i]})
-        i+=0
+        yuhuha_showingp.append({name:yuhuha_answer})
+
     showInGroup(thisgame,yuhuha_showingp,"yuhuha")
     setstarter = (round_number-1) % len(thisgame.player_list)
     for i in range(round_number):
@@ -243,7 +240,7 @@ def judgment_set(set_info, thisgame):
     for i in range(len(thisgame.player_list)):
         if player_name == thisgame.player_list[i].name:
             winner = i
-
+    print("bestcard : ", bestcard)
     return winner
 
 def judgment_round(round_number,round_info,round_yuhuha,thisgame):
